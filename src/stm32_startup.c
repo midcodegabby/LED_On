@@ -6,8 +6,8 @@
 //headers and macros
 #include <stdint.h>
 
-#define SRAM_START 0x20000000
-#define SRAM_SIZE (128*1024) //128 KB, SRAM1 = 96 KB, SRAM2 = 32 KB
+#define SRAM_START 0x20000000U
+#define SRAM_SIZE (128U*1024U) //128 KB, SRAM1 = 96 KB, SRAM2 = 32 KB
 #define SRAM_END (SRAM_START + SRAM_SIZE)
 
 #define STACK_START (SRAM_END)
@@ -16,6 +16,7 @@
 extern uint32_t _etext;
 extern uint32_t _sdata;
 extern uint32_t _edata;
+extern uint32_t _la_data;
 
 extern uint32_t _sbss;
 extern uint32_t _ebss;
@@ -122,7 +123,6 @@ void FPU_IRQHandler              	(void) __attribute__ ((weak, alias("Default_Ha
 //in a new section called .isr_vector
 uint32_t vectors[] __attribute__((section(".isr_vector"))) = {
 	STACK_START,
-	0,
 	(uint32_t) Reset_Handler,  //must typecast this
 	(uint32_t) NMI_Handler, //address of default_handler is stored here
 	(uint32_t) HardFault_Handler, 		
@@ -242,7 +242,7 @@ void Reset_Handler(void){
 	//pDst is a pointer to the destination of the data section (in SRAM)
 	uint8_t *pDst = (uint8_t*)&_sdata;
 	
-	//pSrc is a pointer to the souurce of the data section (in FLASH)
+	//pSrc is a pointer to the source of the data section (in FLASH)
 	uint8_t *pSrc = (uint8_t*)&_edata;
 
 	for(uint32_t i=0; i < size; i++){

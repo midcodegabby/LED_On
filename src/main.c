@@ -24,14 +24,7 @@
 #define RCC_CCIPR (*((volatile uint32_t *) RCC + 0x88))		//clk config for peripherals
 
 
-int main(void) {
-	
-	const uint32_t first = 1; 
-
-	//enable clk for peripherals (GPIO Port A)
-	RCC_AHB2ENR |= (1 << 0);	
-
-	for(uint32_t i=0; i < 100; i++); 
+void led_on(void){
 
 	//set LED pin (GPIOA pin 5) to be general purpose output mode
 	GPIOA_MODER |= (1 << 10);
@@ -46,7 +39,19 @@ int main(void) {
 	GPIOA_ODR |= (1 << 5); // set led ON
 	//GPIOA_BSRR |= (1 << 5);
 
-	const uint32_t second = 1; 
+	//const uint32_t second = 1; 
+}
+
+int main(void) {
+	
+	//const uint32_t first = 1; 
+
+	//enable clk for peripherals (GPIO Port A)
+	RCC_AHB2ENR |= (1 << 0);	
+
+	for(uint32_t i=0; i < 100; i++); 
+
+	led_on();
 
 //	volatile uint32_t val;
 //	val = 0;
@@ -61,8 +66,6 @@ int main(void) {
 
 //		val++;
 	}
-	
 
 	return 0;
 }
-
