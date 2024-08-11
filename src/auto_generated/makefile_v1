@@ -1,21 +1,19 @@
 # note for compilation: can call a specific function defined here by using
 # [make func_name] --> e.g., make clean
 CC=arm-none-eabi-gcc
-AS=arm-none-eabi-as
 MACH=cortex-m4
 CFLAGS=-c -mcpu=$(MACH) -mthumb --std=gnu11 -Wall -o0 -g3
-LDFLAGS=-nostdlib -T STM32L476RGTX_RAM.ld -Wl,-Map=final.map #-Wl specifies a linker input
-ASFLAGS=-c -mcpu=$(MACH) -mthumb -Wall -o0
+LDFLAGS=-nostdlib -T stm32_ls.ld -Wl,-Map=final.map #-Wl specifies a linker input
 
-all: main.o startup_stm32l476rgtx.o final.elf
+all: main.o stm32_startup.o final.elf
 
 main.o:main.c
 	$(CC) $(CFLAGS) -o $@ $^
 
-startup_stm32l476rgtx.o:startup_stm32l476rgtx.s
+stm32_startup.o:stm32_startup.c
 	$(CC) $(CFLAGS) -o $@ $^
 
-final.elf: main.o startup_stm32l476rgtx.o
+final.elf: main.o stm32_startup.o
 	$(CC) $(LDFLAGS) -o $@ $^
 
 clean:
