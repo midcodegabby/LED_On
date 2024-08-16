@@ -30,41 +30,31 @@ void led_on(void){
 	GPIOA_MODER |= (1 << 10);
 	GPIOA_MODER &= ~(1 << 11);
 
-	//set LED pin to be Z (floating) so that led stays on
-	//GPIOA_PUPDR &= ~(1 << 11);
-	//GPIOA_PUPDR &= ~(1 << 10);
-
 	GPIOA_OTYPER &= ~(1 << 5); // set PA5 to be push-pull
 				   
 	GPIOA_ODR |= (1 << 5); // set led ON
-	//GPIOA_BSRR |= (1 << 5);
-
-	//const uint32_t second = 1; 
 }
 
 int main(void) {
 	
-	const uint32_t first = 100; 
-
 	//enable clk for peripherals (GPIO Port A)
 	RCC_AHB2ENR |= (1 << 0);	
 
-	for(uint32_t i=0; i < 100; i++); 
+	for(uint32_t i=0; i < 2; i++); 
 
 	led_on();
 
-//	volatile uint32_t val;
-//	val = 0;
+	uint32_t val = 0;
 
 	while (1) {
 		
-//		if (val == 1000000) {
+		if (val == 100000) {
 
-//			GPIOA_ODR ^= (1 << 5); // set led ON
-//			val = 0;
-//		}
+			GPIOA_ODR &= ~(1 << 5); // set led ON
+			val = 0;
+		}
 
-//		val++;
+		val++;
 	}
 
 	return 0;

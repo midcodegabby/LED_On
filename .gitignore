@@ -1,8 +1,7 @@
 .cproject
 .project
 .settings/
-src/.gdbinit
+./src/.gdbinit
 Debug/
-RPS.launch
 Release/
 
