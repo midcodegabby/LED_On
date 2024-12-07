@@ -20,7 +20,9 @@ clean:
 	rm -rf *.o *.elf *.map
 
 load:
-	openocd -f board/st_nucleo_l4.cfg
+	#openocd -f board/st_nucleo_l4.cfg
+	#openocd -f target/stm32l4x.cfg
+	openocd -f interface/stlink.cfg -c "transport select hla_swd" -f target/stm32l4x.cfg
 
 client:
 	arm-none-eabi-gdb

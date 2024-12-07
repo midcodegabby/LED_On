@@ -47,7 +47,7 @@ int main(void) {
 	uint32_t val = 0;
 
 	while (1) {
-		
+	/*	
 		if (val == 100000) {
 
 			GPIOA_ODR &= ~(1 << 5); // set led ON
@@ -55,6 +55,7 @@ int main(void) {
 		}
 
 		val++;
+	*/
 	}
 
 	return 0;
